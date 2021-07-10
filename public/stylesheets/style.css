@@ -9,6 +9,15 @@ header {
 .navbar .navbar-brand:hover {
   color: #226089;
 }
+.add {
+  color: #4592af;
+  font-size: 14px;
+  text-decoration: none;
+}
+.add:hover {
+  color: #226089;
+  text-decoration: none;
+}
 
 .banner {
   position: relative;
