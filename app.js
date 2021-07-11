@@ -119,7 +119,7 @@ app.get('/search', (req, res) => {
         )
       }
     })
-    .catch((error) => console.error(error))
+    .catch(error => console.log(error))
 })
 app.listen(port, () => {
   console.log(`express server run in http://localhost:${port}`)
