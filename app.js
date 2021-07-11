@@ -114,13 +114,19 @@ app.get('/search', (req, res) => {
   Restaurant.find()
     .lean()
     .then((restaurants) => {
-      if (keyword) {
-        restaurants = restaurants.filter((restaurant) => restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)
-        )
+      restaurants = restaurants.filter((restaurant) =>
+        restaurant.name.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword)
+      )
+      if (restaurants.length === 0) {
+        res.render('index', { restaurants: restaurants, keyword: keyword,alert:`
+          <h1 class="display-5 mt-5 text-info text-center"><i class="far fa-dizzy fa-lg"></i>  Sorry no results</h1>
+        `})
+      } else {
+        res.render('index', { restaurants: restaurants, keyword: keyword })
       }
     })
-    .catch(error => console.log(error))
 })
+
 app.listen(port, () => {
   console.log(`express server run in http://localhost:${port}`)
 })
