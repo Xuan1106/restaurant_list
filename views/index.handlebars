@@ -37,21 +37,20 @@
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
-
+              <div class="container d-flex justify-content-end">
+                <u class="mr-3 mt-1">
+                  <a href="/restaurants/{{ this._id }}/edit">Edit</a>
+                </u>
+                <u class="mr-3 mt-1">
+                  <a href="/restaurants/{{ this._id }}">Detail</a>
+                </u>
+                <form action="/restaurants/{{ this._id }}/delete" method="POST">
+                  <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                </form>
+              </div>
             </div>
           </div>
         </a>
-        <div class="container mb-5 d-flex justify-content-end">
-          <u class="mr-3 mt-1">
-            <a href="/restaurants/{{ this._id }}/edit">Edit</a>
-          </u>
-          <u class="mr-3 mt-1">
-            <a href="/restaurants/{{ this._id }}">Detail</a>
-          </u>
-          <form action="/restaurants/{{ this._id }}/delete" method="POST">
-            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-          </form>
-        </div>
         {{/each}}
       </div>
     </div>

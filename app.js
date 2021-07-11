@@ -109,6 +109,18 @@ app.post('/restaurants/:id/delete', (req, res) => {
 //   })
 //   res.render('index', { restaurant: restaurants, keyword: keyword })
 // })
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword.toLowerCase().trim()
+  Restaurant.find()
+    .lean()
+    .then((restaurants) => {
+      if (keyword) {
+        restaurants = restaurants.filter((restaurant) => restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)
+        )
+      }
+    })
+    .catch((error) => console.error(error))
+})
 app.listen(port, () => {
   console.log(`express server run in http://localhost:${port}`)
 })
