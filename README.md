@@ -18,6 +18,7 @@
 - Visual Studio Code
 - Node.js
 - Express 4.17.1
-- express-handlebars 5.3.2
-- mongoose 5.13.2
+- Method-override 3.0.0
+- Express-handlebars 5.3.2
+- Mongoose 5.13.2
 - restaurant.json
