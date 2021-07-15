@@ -5,6 +5,7 @@ const app = express()
 const port = 3000
 
 const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
 
 const restaurantList = require('./restaurant.json')
 const Restaurant = require('./models/restaurant.js')
@@ -22,6 +23,7 @@ app.set('view engine', 'handlebars')
 // set static file
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
   Restaurant.find()
@@ -34,16 +36,8 @@ app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
 
-app.post('/restaurants', (req, res) => {
-  const name = req.body.name
-  const name_en = req.body.name_en
-  const category = req.body.category
-  const image = req.body.image
-  const location = req.body.location
-  const phone = req.body.phone
-  const google_map = req.body.google_map
-  const rating = req.body.rating
-  const description = req.body.description
+app.put('/restaurants', (req, res) => {
+  const {name, name_en, category, image, location, phone, google_map, rating, description} = req.body
 
   return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description})
     .then(() => res.redirect('/'))
@@ -67,17 +61,9 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  const name = req.body.name
-  const name_en = req.body.name_en
-  const category = req.body.category
-  const image = req.body.image
-  const location = req.body.location
-  const phone = req.body.phone
-  const google_map = req.body.google_map
-  const rating = req.body.rating
-  const description = req.body.description
+  const {name, name_en, category, image, location, phone, google_map, rating, description} = req.body
   return Restaurant.findById(id)
     .then(restaurant => {
       restaurant.name = name
@@ -95,20 +81,14 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurants => restaurants.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword.toLowerCase()
-//   const restaurants = restaurantList.results.filter(restaurant => {
-//     return restaurant.name.toLowerCase().includes(keyword)
-//   })
-//   res.render('index', { restaurant: restaurants, keyword: keyword })
-// })
+/
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase().trim()
   Restaurant.find()
