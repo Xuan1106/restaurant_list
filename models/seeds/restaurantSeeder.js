@@ -7,7 +7,6 @@ db.once('open', () => {
   console.log('MongoDB connected.')
   seed.forEach((restaurant) => {
     Restaurant.create({
-      id: restaurant.id,
       name: restaurant.name,
       name_en: restaurant.name_en,
       category: restaurant.category,
