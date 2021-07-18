@@ -41,14 +41,14 @@
 </div>
 
 <div class="button mb-5 d-flex justify-content-center">
-  <u class="mr-3 mt-1">
-    <a href="/restaurants/{{restaurant._id}}/edit">Edit</a>
-  </u>
-  <u class="mr-3 mt-1">
-    <a href="/">Back</a>
-  </u>
+  <form action="/restaurants/{{restaurant._id}}/edit">
+    <button class="btn btn-outline-secondary btn-sm mr-3" type="submit">Edit</button>
+  </form>
+  <form action="/">
+    <button class="btn btn-outline-secondary btn-sm" type="submit">Back</button>
+  </form>
   <form action="./{{restaurant._id}}?_method=DELETE" method="POST">
-    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+    <button class="btn btn-outline-secondary btn-sm ml-3" type="submit">Delete</button>
   </form>
 
 
