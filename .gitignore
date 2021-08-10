@@ -1,2 +1,10 @@
-/node_modules
-.DS_store
+.DS_Store*
+Icon?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+node_modules
+*.log
+*.gz
+.env
