@@ -27,23 +27,14 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   const errors = []
-  User.findOne({ email }).then(user => {
-    if (user) {
-      errors.push({ message: 'The Email beed registered'})
-      res.render('register', {
-        errors,
-        name,
-        email,
-        password,
-        confirmPassword
-      })
-    } 
   if (!email || !password || !confirmPassword) {
     errors.push({ message: 'All fields are required except for name'})
   }
+
   if (password !== confirmPassword) {
     errors.push({ message: 'The password doesn\'t match the confirmed password'})
   }
+
   if (errors.length) {
     return res.render('register', {
       errors,
@@ -53,6 +44,18 @@ router.post('/register', (req, res) => {
       confirmPassword
     })
   }
+
+  User.findOne({ email }).then(user => {
+    if (user) {
+      errors.push({ message: 'The Email beed registered'})
+      return res.render('register', {
+        errors,
+        name,
+        email,
+        password,
+        confirmPassword
+      })
+    } 
     return bcrypt 
       .genSalt(10)
       .then(salt => bcrypt.hash(password, salt))
